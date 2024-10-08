@@ -34,8 +34,9 @@ public class TodoController {
         return ResponseEntity.ok(todoService.getTodos(page, size));
     }
 
+    //IllegalArgumentException: Name for argument of type [long] not specified 에러 해결위해서 매개변수 이름을 지정해줌
     @GetMapping("/todos/{todoId}")
-    public ResponseEntity<TodoResponse> getTodo(@PathVariable long todoId) {
+    public ResponseEntity<TodoResponse> getTodo(@PathVariable("todoId") long todoId) {
         return ResponseEntity.ok(todoService.getTodo(todoId));
     }
 }

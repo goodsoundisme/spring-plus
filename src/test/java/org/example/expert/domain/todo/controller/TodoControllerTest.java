@@ -68,10 +68,11 @@ class TodoControllerTest {
                 .thenThrow(new InvalidRequestException("Todo not found"));
 
         // then
+        //invalid는 400에러인데, 200ok를 반환중이니 badrequest 400으로 바꿔야한다.
         mockMvc.perform(get("/todos/{todoId}", todoId))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value(HttpStatus.OK.name()))
-                .andExpect(jsonPath("$.code").value(HttpStatus.OK.value()))
+                .andExpect(status().isBadRequest()) //200 말고 400을 expect하게끔 코드 수정
+                .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.name()))
+                .andExpect(jsonPath("$.code").value(HttpStatus.BAD_REQUEST.value()))
                 .andExpect(jsonPath("$.message").value("Todo not found"));
     }
 }
